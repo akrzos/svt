@@ -18,6 +18,9 @@
 ## Modified: akrzos@redhat.com
 ##  -- updates  : 11.21.2018
 ##      - allow skipping of registering pbench tools
+## Modified: akrzos@redhat.com
+##  -- updates  : 01.24.2019
+##      - adjustments to run containerized for OCP 4.0
 ################################################
 
 function wait_for_project_delete {
@@ -67,6 +70,8 @@ fi
 
 echo "INFO : $(date) ###### STARTING NETWORK TESTS: $run_mode ######"
 
+# Ensure using default project at start of tests
+oc project default
 # copy the public key from the svt private repo
 cp /root/svt-private/image_provisioner/id_rsa_perf.pub id_rsa.pub
 
@@ -75,7 +80,7 @@ cp /root/svt-private/image_provisioner/id_rsa_perf.pub id_rsa.pub
 #master=`cat config.yaml |egrep 'master:' | awk -F: '{print $2}'`
 #nodes=`cat config.yaml |egrep 'nodes:' | awk -F: '{print $2}'`
 masters=`oc get nodes | grep master | awk '{print $1}'`
-nodes=`oc get nodes | grep ' compute' | awk '{print $1}'`
+nodes=`oc get nodes -l pbench_role=agent | egrep ' compute| worker' | awk '{print $1}'`
 
 # make the master schedulable --no longer needed--
 #oc adm manage-node --schedulable=true ${master}

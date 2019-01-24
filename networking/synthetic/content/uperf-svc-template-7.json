@@ -29,7 +29,7 @@
                 "ports": [
                     {
                         "name": "ssh",
-                        "port": 22
+                        "port": 2022
                     },
 		    {
 			"name": "uperf-70-tcp",
@@ -80,7 +80,7 @@
 			"name": "uperf-79-tcp",
 			"port": 20079,
 			"protocol": "TCP"
-		    },		    
+		    },
 		    {
 			"name": "uperf-70-udp",
 			"port": 20070,
@@ -125,7 +125,7 @@
 			"name": "uperf-78-udp",
 			"port": 20078,
 			"protocol": "UDP"
-		    },		    		    		    		    
+		    },
 		    {
 			"name": "uperf-79-udp",
 			"port": 20079,

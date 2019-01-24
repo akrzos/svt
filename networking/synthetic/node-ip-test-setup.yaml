@@ -5,36 +5,10 @@
   user: root
   tasks:
     - name: Copy ssh public key to local systems
-      copy: src=id_rsa.pub dest=/root/.ssh/.
-
-- hosts: sender:receiver
-  remote_user: root
-  tasks:
-  - name: Install openssh clients and server
-    yum:
-      name:
-        - openssh-clients
-        - openssh-server
-      state: latest
-      update_cache: yes
-
-  - name: Enable epel
-    get_url:
-      url: https://copr.fedorainfracloud.org/coprs/ndokos/pbench/repo/epel-7/ndokos-pbench-epel-7.repo
-      dest: /etc/yum.repos.d/pbench.repo
-
-  - name: Install configtools, pbench-agent, pbench-uperf
-    yum:
-      name:
-        - configtools
-        - pbench-agent
-        - pbench-uperf
-      state: latest
-
-  - name: Source pbench profile.
-    shell: source /etc/profile.d/pbench-agent.sh
+      copy: src=id_rsa.pub dest=/root/.ssh/
 
 - hosts: master
+  connection: local
   remote_user: root
   vars:
     register_pbench: true

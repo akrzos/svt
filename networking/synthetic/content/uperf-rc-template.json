@@ -38,8 +38,8 @@
 		    "spec": {
 			"containers": [
 			    {
-				"image": "centos/uperf:latest",
-				"imagePullPolicy": "Never",
+				"image": "quay.io/akrzos/uperf:latest",
+				"imagePullPolicy": "IfNotPresent",
 				"name": "uperf",
 				"terminationMessagePath": "/dev/termination-log",
 				"securityContext": {

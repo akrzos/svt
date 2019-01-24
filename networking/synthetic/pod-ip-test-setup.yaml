@@ -5,21 +5,10 @@
   user: root
   tasks:
     - name: Copy ssh public key to local systems
-      copy: src=id_rsa.pub dest=/root/.ssh/.
-
-- hosts: sender:receiver
-  remote_user: root
-  tasks:
-  - name: Create directory for uperf docker image resources
-    file: path=/tmp/uperf state=directory
-
-  - name: Copy Dockerfile to sender
-    copy: src=uperf/Dockerfile dest=/tmp/uperf/Dockerfile
-
-  - name: Build uperf docker image
-    shell: docker build --tag centos/uperf /tmp/uperf
+      copy: src=id_rsa.pub dest=/root/.ssh/
 
 - hosts: master
+  connection: local
   remote_user: root
   tasks:
   - name: Create SSH directory /root/.ssh if it does not exist
@@ -82,6 +71,7 @@
     script: scripts/wait-ready.sh receiver
 
 - hosts: master
+  connection: local
   remote_user: root
   pre_tasks:
   - name: Get sender pods ip addresses
